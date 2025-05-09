@@ -1,10 +1,30 @@
-import { useState } from "react";
+import axios from "axios";
+import { useEffect, useState } from "react";
 
 const WorkingHourContainer = () => {
+  const [totalHours, setTotalHours] = useState(null);
+
+  const fetchTotalHours = async () => {
+    const userId = "ricardo0629";
+    try {
+      const res = await axios.get(`http://74.119.194.113:8000/total/${userId}`);
+      console.log("Fetched data:", res.data)
+      setTotalHours(res.data.total_hours || 0);
+    } catch (err) {
+      console.error("Failed to fetch total hours:", err);
+    }
+  }; 
+
+  useEffect(() => {
+    fetchTotalHours();
+    const interval = setInterval(fetchTotalHours, 2 * 60 * 1000); // every 30 minutes
+    return () => clearInterval(interval);
+  }, []);
+
   const initialMembers = [
     { id: 1, name: "Alice", team: "9Team", start: "09:00", end: "No" },
     { id: 2, name: "Bob", team: "9Team", start: "10:00", end: "Yes" },
-    { id: 3, name: "Charlie", team: "9Team", start: "09:30", end: "No" },
+    { id: 3, name: "Ricardo", team: "9Team", start: totalHours, end: "No" },
     { id: 4, name: "Charlie", team: "9Team", start: "08:30", end: "No" },
     { id: 5, name: "Charlie", team: "9Team", start: "07:30", end: "No" },
     { id: 6, name: "Charlie", team: "9Team", start: "09:00", end: "No" },
