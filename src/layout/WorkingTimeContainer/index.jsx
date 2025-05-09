@@ -8,7 +8,7 @@ const WorkingHourContainer = () => {
     const userId = "ricardo0629";
     try {
       const res = await axios.get(`/api/total/${userId}`);
-      console.log("Fetched data:", res.data)
+      console.log("Fetched data:", res.data.total_hours)
       setTotalHours(res.data.total_hours || 0);
     } catch (err) {
       console.error("Failed to fetch total hours:", err);
@@ -65,7 +65,7 @@ const WorkingHourContainer = () => {
           </tr>
         </thead>
         <tbody>
-          {members.map((member, index) => (
+          {/* {members.map((member, index) => (
             <tr key={member.id} className="hover:bg-gray-50">
               <td className="border border-gray-300 px-4 py-2">{index + 1}</td>
               <td className="border border-gray-300 px-4 py-2">{member.name}</td>
@@ -73,7 +73,14 @@ const WorkingHourContainer = () => {
               <td className="border border-gray-300 px-4 py-2">{member.start}</td>
               <td className="border border-gray-300 px-4 py-2">{member.end}</td>
             </tr>
-          ))}
+          ))} */}
+            <tr className="hover:bg-gray-50">
+              <td className="border border-gray-300 px-4 py-2">1</td>
+              <td className="border border-gray-300 px-4 py-2">Ricardo</td>
+              <td className="border border-gray-300 px-4 py-2">9Team</td>
+              <td className="border border-gray-300 px-4 py-2">{totalHours}</td>
+              <td className="border border-gray-300 px-4 py-2">No</td>
+            </tr>
         </tbody>
       </table>
     </div>
