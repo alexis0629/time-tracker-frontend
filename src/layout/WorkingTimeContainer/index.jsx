@@ -8,8 +8,9 @@ const WorkingHourContainer = () => {
     const userId = "ricardo0629";
     try {
       const res = await axios.get(`/api/total/${userId}`);
-      console.log("Fetched data:", res.data.total_hours)
-      setTotalHours(res.data.total_hours || 0);
+      const total_hours = parseFloat(res.data.total_hours);
+      const roundedHours = total_hours.toFixed(1);
+      setTotalHours(roundedHours || 0);
     } catch (err) {
       console.error("Failed to fetch total hours:", err);
     }
