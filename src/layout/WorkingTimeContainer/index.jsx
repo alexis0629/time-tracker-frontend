@@ -7,7 +7,7 @@ const WorkingHourContainer = () => {
   const fetchTotalHours = async () => {
     const userId = "ricardo0629";
     try {
-      const res = await axios.get(`http://74.119.194.113:8000/total/${userId}`);
+      const res = await axios.get(`/api/total/${userId}`);
       console.log("Fetched data:", res.data)
       setTotalHours(res.data.total_hours || 0);
     } catch (err) {
